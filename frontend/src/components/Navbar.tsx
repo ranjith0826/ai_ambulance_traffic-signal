@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import {
@@ -12,7 +12,9 @@ import {
   ShieldAlert,
   Menu,
   X,
-  Radio
+  Radio,
+  Moon,
+  Sun
 } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
@@ -20,6 +22,24 @@ export const Navbar: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Dark / Light Mode
+  const [darkMode, setDarkMode] = useState(() => {
+    const stored = localStorage.getItem('lifelane-theme');
+    return stored ? stored === 'dark' : true; // default dark
+  });
+
+  useEffect(() => {
+    const html = document.documentElement;
+    if (darkMode) {
+      html.setAttribute('data-theme', 'dark');
+      html.classList.add('dark');
+    } else {
+      html.setAttribute('data-theme', 'light');
+      html.classList.remove('dark');
+    }
+    localStorage.setItem('lifelane-theme', darkMode ? 'dark' : 'light');
+  }, [darkMode]);
 
   const handleLogout = () => {
     logout();
@@ -100,6 +120,15 @@ export const Navbar: React.FC = () => {
 
             {/* Right Action Controls with spacious gaps */}
             <div className="hidden md:flex items-center gap-3">
+              {/* Dark/Light Mode Toggle */}
+              <button
+                onClick={() => setDarkMode((d) => !d)}
+                id="theme-toggle-btn"
+                className="p-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
+                title={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              >
+                {darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+              </button>
               {user ? (
                 <div className="flex items-center gap-3">
                   <button

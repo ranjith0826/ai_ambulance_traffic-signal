@@ -242,6 +242,59 @@ export const DriverDashboard: React.FC = () => {
     }
   };
 
+  // --- Sound Helpers (Web Audio API — no external files needed) ---
+  const playSiren = () => {
+    try {
+      const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const duration = 2.5;
+      const osc1 = ctx.createOscillator();
+      const osc2 = ctx.createOscillator();
+      const gainNode = ctx.createGain();
+
+      osc1.type = 'sawtooth';
+      osc2.type = 'sine';
+      gainNode.gain.setValueAtTime(0.18, ctx.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+
+      // Wailing effect: frequency sweeps up and down
+      osc1.frequency.setValueAtTime(600, ctx.currentTime);
+      osc1.frequency.linearRampToValueAtTime(900, ctx.currentTime + 0.5);
+      osc1.frequency.linearRampToValueAtTime(600, ctx.currentTime + 1.0);
+      osc1.frequency.linearRampToValueAtTime(900, ctx.currentTime + 1.5);
+      osc1.frequency.linearRampToValueAtTime(600, ctx.currentTime + 2.0);
+
+      osc2.frequency.setValueAtTime(400, ctx.currentTime);
+      osc2.frequency.linearRampToValueAtTime(700, ctx.currentTime + 0.5);
+      osc2.frequency.linearRampToValueAtTime(400, ctx.currentTime + 1.0);
+      osc2.frequency.linearRampToValueAtTime(700, ctx.currentTime + 1.5);
+      osc2.frequency.linearRampToValueAtTime(400, ctx.currentTime + 2.0);
+
+      osc1.connect(gainNode);
+      osc2.connect(gainNode);
+      gainNode.connect(ctx.destination);
+      osc1.start(ctx.currentTime);
+      osc2.start(ctx.currentTime);
+      osc1.stop(ctx.currentTime + duration);
+      osc2.stop(ctx.currentTime + duration);
+    } catch (e) { /* Audio not supported */ }
+  };
+
+  const playBeep = () => {
+    try {
+      const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.value = 880;
+      gain.gain.setValueAtTime(0.15, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.3);
+    } catch (e) { /* Audio not supported */ }
+  };
+
   // Start Emergency
   const handleStartEmergency = async () => {
     const amb = myAmbulance || (ambulances.length > 0 ? ambulances[0] : null);
@@ -269,6 +322,7 @@ export const DriverDashboard: React.FC = () => {
       setShowLocationSuggestions(false);
       setSimStepIndex(0);
       setIsSimulating(true);
+      playSiren(); // 🚨 Play siren when emergency starts
     } catch (err: any) {
       alert(err.response?.data?.detail || 'Failed to start emergency trip');
     }

@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { tripService } from '../services/api';
 import { Trip } from '../types';
+import { GuidedTour } from '../components/GuidedTour';
+import { AnimatedCounter } from '../components/AnimatedCounter';
 import {
   Siren,
   ShieldAlert,
@@ -17,13 +19,15 @@ import {
   Compass,
   Key,
   ShieldCheck,
-  Activity
+  Activity,
+  Play
 } from 'lucide-react';
 
 export const LandingPage: React.FC = () => {
   const { user, getRoleRedirectPath } = useAuth();
   const navigate = useNavigate();
   const [activeTrips, setActiveTrips] = useState<Trip[]>([]);
+  const [showTour, setShowTour] = useState(false);
 
   useEffect(() => {
     tripService.getActive().then(setActiveTrips).catch(() => {});
@@ -31,6 +35,8 @@ export const LandingPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white text-[#0A0D0B] flex flex-col relative overflow-hidden">
+      {/* Guided Tour Modal */}
+      {showTour && <GuidedTour onClose={() => setShowTour(false)} />}
       {/* Subtle Ambient Radial Glow in the background */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-b from-[#10B981]/10 via-[#34D399]/5 to-transparent rounded-full blur-3xl pointer-events-none -z-10" />
 
@@ -83,9 +89,17 @@ export const LandingPage: React.FC = () => {
 
           {/* Call to action buttons with generous padding */}
           <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
+            <button
+              onClick={() => setShowTour(true)}
+              id="start-guided-tour-btn"
+              className="px-8 py-4 bg-[#10B981] hover:bg-[#34D399] text-[#0A0D0B] rounded-2xl font-heading font-black text-sm shadow-lg shadow-[#10B981]/25 flex items-center gap-2.5 transition-all hover:scale-105"
+            >
+              <Play className="w-4 h-4" />
+              <span>Start Guided Demo Tour</span>
+            </button>
             <Link
               to="/demo"
-              className="px-8 py-4 bg-[#10B981] hover:bg-[#34D399] text-[#0A0D0B] rounded-2xl font-heading font-black text-sm shadow-lg shadow-[#10B981]/25 flex items-center gap-2.5 transition-all hover:scale-105"
+              className="px-8 py-4 bg-white hover:bg-slate-50 text-gray-900 border border-gray-300 rounded-2xl font-heading font-bold text-sm shadow-sm transition-all hover:border-[#10B981]"
             >
               <span>Explore Demo Scenarios</span>
               <ArrowRight className="w-4 h-4" />
@@ -166,22 +180,30 @@ export const LandingPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Classy Performance Metric Strip */}
+          {/* Animated Performance Metric Strip */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
             <div className="bg-white border border-gray-200 p-5 rounded-2xl shadow-sm hover:border-[#10B981]/60 transition-colors text-center">
-              <div className="font-heading text-2xl sm:text-3xl font-black text-[#0A0D0B]">98.4%</div>
+              <div className="font-heading text-2xl sm:text-3xl font-black text-[#0A0D0B]">
+                <AnimatedCounter target={98.4} decimals={1} suffix="%" />
+              </div>
               <div className="text-[11px] font-bold text-gray-500 uppercase tracking-wider mt-1">Preemption Accuracy</div>
             </div>
             <div className="bg-white border border-gray-200 p-5 rounded-2xl shadow-sm hover:border-[#10B981]/60 transition-colors text-center">
-              <div className="font-heading text-2xl sm:text-3xl font-black text-[#10B981]">&lt; 1.2s</div>
+              <div className="font-heading text-2xl sm:text-3xl font-black text-[#10B981]">
+                &lt; <AnimatedCounter target={1.2} decimals={1} suffix="s" />
+              </div>
               <div className="text-[11px] font-bold text-gray-500 uppercase tracking-wider mt-1">Conflict Resolution</div>
             </div>
             <div className="bg-white border border-gray-200 p-5 rounded-2xl shadow-sm hover:border-[#10B981]/60 transition-colors text-center">
-              <div className="font-heading text-2xl sm:text-3xl font-black text-[#0A0D0B]">42%</div>
+              <div className="font-heading text-2xl sm:text-3xl font-black text-[#0A0D0B]">
+                <AnimatedCounter target={42} suffix="%" />
+              </div>
               <div className="text-[11px] font-bold text-gray-500 uppercase tracking-wider mt-1">Transit Time Saved</div>
             </div>
             <div className="bg-white border border-gray-200 p-5 rounded-2xl shadow-sm hover:border-[#10B981]/60 transition-colors text-center">
-              <div className="font-heading text-2xl sm:text-3xl font-black text-[#10B981]">100%</div>
+              <div className="font-heading text-2xl sm:text-3xl font-black text-[#10B981]">
+                <AnimatedCounter target={100} suffix="%" />
+              </div>
               <div className="text-[11px] font-bold text-gray-500 uppercase tracking-wider mt-1">Intersection Safety</div>
             </div>
           </div>
