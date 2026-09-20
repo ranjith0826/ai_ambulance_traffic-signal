@@ -1,0 +1,294 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@400;500;600;700;800;900&display=swap');
+@import 'leaflet/dist/leaflet.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-cream: #FFFFFF;
+  --card-cream: #FFFFFF;
+  --primary-green: #10B981;
+  --dark-green: #0A0D0B;
+  --gold: #34D399;
+  --orange: #EA580C;
+  --danger: #DC2626;
+  --success: #10B981;
+  --text-main: #0A0D0B;
+  --text-muted: #64748B;
+  --border-cream: #E2E8F0;
+}
+
+body {
+  background-color: var(--bg-cream);
+  color: var(--text-main);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', 'Inter', sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 6px;
+  border: 2px solid #F1F5F9;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #10B981;
+}
+
+/* Leaflet map styling fixes */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  background-color: #FFFFFF !important;
+  font-family: 'Inter', sans-serif !important;
+  border-radius: 1rem;
+}
+
+.leaflet-popup-content-wrapper {
+  background: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+  border-radius: 1rem !important;
+  padding: 4px !important;
+}
+
+.leaflet-popup-tip {
+  background: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+}
+
+/* Emergency Signal Pulse Animation */
+@keyframes signal-beacon {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    transform: scale(1.06);
+    box-shadow: 0 0 0 16px rgba(16, 185, 129, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+.beacon-pulse {
+  animation: signal-beacon 1.8s infinite;
+}
+
+@keyframes siren-flash {
+  0%, 100% {
+    box-shadow: 0 0 16px #DC2626, 0 0 28px #DC2626;
+  }
+  50% {
+    box-shadow: 0 0 22px #10B981, 0 0 32px #10B981;
+  }
+}
+
+.siren-glow {
+  animation: siren-flash 1.2s infinite ease-in-out;
+}
+
+/* Classy Micro-Animations */
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes float-delayed {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+@keyframes scan-sheen {
+  0% {
+    transform: translateX(-100%) skewX(-15deg);
+  }
+  100% {
+    transform: translateX(200%) skewX(-15deg);
+  }
+}
+
+@keyframes soft-glow {
+  0%, 100% {
+    box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 45px 5px rgba(16, 185, 129, 0.45);
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 5s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-delayed 6s ease-in-out 1.5s infinite;
+}
+
+.animate-scan-sheen {
+  animation: scan-sheen 6s infinite ease-in-out;
+}
+
+.animate-soft-glow {
+  animation: soft-glow 3.5s infinite ease-in-out;
+}
+
+.glass-badge {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+/* ========================================================
+   ✨ LifeLane AI Dynamic Animation Suite
+   ======================================================== */
+
+/* 1. Radar Geofence Ripple (500m Green Corridor Signal Sweep) */
+@keyframes radar-ripple {
+  0% {
+    transform: scale(0.85);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.6);
+    opacity: 0.45;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+.animate-radar-wave {
+  animation: radar-ripple 2.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+/* 2. ECG Heartbeat Vital Monitor Pulse */
+@keyframes heartbeat-ecg {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 0px rgba(220, 38, 38, 0));
+  }
+  14% {
+    transform: scale(1.22);
+    filter: drop-shadow(0 0 8px rgba(220, 38, 38, 0.7));
+  }
+  28% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 6px rgba(220, 38, 38, 0.5));
+  }
+  70% {
+    transform: scale(1);
+  }
+}
+
+.animate-ecg-heartbeat {
+  animation: heartbeat-ecg 1.35s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* 3. Emergency Siren Beacon Glow */
+@keyframes emergency-strobe {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.7), 0 0 30px rgba(239, 68, 68, 0.4);
+  }
+  50% {
+    opacity: 0.82;
+    box-shadow: 0 0 25px rgba(16, 185, 129, 0.8), 0 0 45px rgba(16, 185, 129, 0.5);
+  }
+}
+
+.animate-emergency-strobe {
+  animation: emergency-strobe 1.2s infinite ease-in-out;
+}
+
+/* 4. AWS Cloud & Bedrock Aurora Gradient Flow */
+@keyframes aurora-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-aurora {
+  background-size: 200% 200%;
+  animation: aurora-flow 4.5s ease infinite;
+}
+
+/* 5. Smooth Spring Pop-In for Cards & Modals */
+@keyframes spring-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.92) translateY(10px);
+  }
+  70% {
+    transform: scale(1.02) translateY(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-spring-pop {
+  animation: spring-pop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* 6. Glowing Green Corridor Polyline Dash Flow */
+@keyframes corridor-flow {
+  to {
+    stroke-dashoffset: -40;
+  }
+}
+
+.animate-corridor-flow path {
+  stroke-dasharray: 10, 10;
+  animation: corridor-flow 1.5s linear infinite;
+}
+
+/* 7. Hover Card Lift & Shimmer */
+.hover-card-interactive {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hover-card-interactive:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px -8px rgba(16, 185, 129, 0.15), 0 6px 12px -4px rgba(0, 0, 0, 0.05);
+}
