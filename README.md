@@ -1,7 +1,6 @@
 # LifeLane AI — Intelligent Ambulance Priority & Virtual Traffic Management
 
-> **Software-Only Prototype**: This project coordinates emergency vehicles, virtual traffic signal preemption, multi-ambulance intersection conflicts, trauma hospital recommendation, and live command dispatch without requiring physical hardware (no Arduino, Raspberry Pi, RFID, or physical signal controllers).
-
+> **Software-Only Prototype**: This project coordinates emergency vehicles, traffic signal preemption, multi-ambulance intersection conflicts, trauma hospital recommendation, and live command dispatch 
 ---
 
 ## 🎨 Design Theme (Cream Palette)
@@ -28,7 +27,7 @@
    - Resolves cross-directional collisions (North-to-South vs East-to-West) by granting `EMERGENCY GREEN` to higher priority vehicle, commanding `HOLD` (Red) to the other, and automatically handing over green right after primary clearance.
 
 2. **500m Green Corridor Geofence**:
-   - Automatically preempts virtual signals along the route when an ambulance is within 500 meters.
+   - Automatically preempts signals along the route when an ambulance is within 500 meters.
    - Reverts signal cycle to normal once vehicle clears the intersection.
 
 3. **Smart Hospital Recommendation**:
@@ -61,10 +60,11 @@
   - **Amazon Bedrock**: GenAI Clinical Copilot & Trauma Triage (`anthropic.claude-3-5-sonnet` / `amazon.titan-text`).
   - **Amazon S3**: Incident Analytics & Telemetry Post-Mortem Audit Archive.
   - **Amazon EC2 / DocumentDB**: Microservices container hosting & persistence.
+  - **Amazon SNS**: Send message to hospital when ambulance is in activation mode
 
 ---
 
-## ☁️ AWS Cloud Architecture & Jury Presentation Guide
+## ☁️ AWS Cloud Architecture
 
 ### 1. Where to Show in Your AWS Account
 
@@ -75,7 +75,7 @@
 | **Amazon EC2 / Lightsail** | **Microservice Hosting**: Containerized FastAPI socket daemon and Vite React command dashboard. | Open **EC2 $\rightarrow$ Instances** to show running Docker host and Security Groups. |
 | **Amazon DocumentDB** | **NoSQL Telemetry Database**: MongoDB-compatible storage for signal states, fleet GPS coordinates, and hospital bed availability. | Open **Amazon DocumentDB $\rightarrow$ Clusters**. |
 
-### 2. Live Demo Steps for the Jury
+### 2. Live Demo Steps
 
 1. **Dashboard API & Cloud Settings**:
    - In the top navigation bar, click the **Settings / Key** icon.
@@ -109,5 +109,3 @@ npm install
 npm run dev
 ```
 
-Visit: `http://localhost:5173`
-API Docs: `http://localhost:8000/docs`
