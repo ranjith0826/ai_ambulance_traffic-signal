@@ -66,7 +66,7 @@
 
 ## ☁️ AWS Cloud Architecture
 
-### 1. Where to Show in Your AWS Account
+### 1. Features used in  AWS Account
 
 | Service | Feature in LifeLane AI | What to Show in AWS Console |
 |---|---|---|
@@ -74,7 +74,7 @@
 | **Amazon S3** | **Emergency Audit & Telemetry Vault**: Stores immutable PDF incident reports and dispatch logs with AES-256 server-side encryption. | Open **S3 $\rightarrow$ Buckets $\rightarrow$ `lifelane-ambulance-reports`** to show uploaded PDF audit reports with timestamps. |
 | **Amazon EC2 / Lightsail** | **Microservice Hosting**: Containerized FastAPI socket daemon and Vite React command dashboard. | Open **EC2 $\rightarrow$ Instances** to show running Docker host and Security Groups. |
 | **Amazon DocumentDB** | **NoSQL Telemetry Database**: MongoDB-compatible storage for signal states, fleet GPS coordinates, and hospital bed availability. | Open **Amazon DocumentDB $\rightarrow$ Clusters**. |
-
+| **Amazon SNS** : SNS is used to send notifications to the hospital that the ambulance driver selects as the destination.
 ### 2. Live Demo Steps
 
 1. **Dashboard API & Cloud Settings**:
@@ -84,11 +84,10 @@
 2. **Amazon Bedrock Clinical Copilot**:
    - Navigate to `/hospital` (Hospital Emergency Portal).
    - Click the **"AWS BEDROCK AI COPILOT"** or **"Bedrock AI Triage"** button on an incoming patient.
-   - Show the jury the instant LLM clinical reasoning: triage priority score, emergency paramedic interventions, and trauma resuscitation bay preparation checklist.
+   - the instant LLM clinical reasoning: triage priority score, emergency paramedic interventions, and trauma resuscitation bay preparation checklist.
 3. **Amazon S3 Regulatory Archival**:
    - Navigate to `/analytics` (Operational Intelligence Dashboard).
    - Click **"Upload to Amazon S3"**.
-   - Show the jury the generated `s3://lifelane-ambulance-reports/...` manifest and access the encrypted PDF report directly from the S3 vault.
 
 ---
 
