@@ -66,7 +66,7 @@
 
 ### 1. Features used in  AWS Account
 
-| Service | Feature in LifeLane AI | What to Show in AWS Console |
+| Service | Feature in LifeLane AI | AWS Console |
 |---|---|---|
 | **Amazon Bedrock** | **GenAI Pre-Arrival Clinical Triage**: Evaluates patient vitals (ECG, SpO2, GCS, BP) to activate Cardiac Cath Lab or Level-1 Trauma Bay and advise paramedics. | Open **Amazon Bedrock $\rightarrow$ Model Access** (show Claude 3.5 Sonnet / Titan enabled) and **Bedrock Playgrounds** for test inference. |
 | **Amazon S3** | **Emergency Audit & Telemetry Vault**: Stores immutable PDF incident reports and dispatch logs with AES-256 server-side encryption. | Open **S3 $\rightarrow$ Buckets $\rightarrow$ `lifelane-ambulance-reports`** to show uploaded PDF audit reports with timestamps. |
