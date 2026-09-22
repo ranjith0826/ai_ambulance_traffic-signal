@@ -20,16 +20,14 @@
 
 ## 🚀 Key Innovations
 
-1. **Multi-Ambulance Conflict Resolution (The Core Innovation)**:
+1. **500m Green Corridor Geofence**:
+   - Automatically preempts signals along the route when an ambulance is within 500 meters.
+   - Reverts signal cycle to normal once vehicle clears the intersection.
+2. **Multi-Ambulance Conflict Resolution (The Core Innovation)**:
    - Evaluates multiple ambulances approaching an intersection within a 30-second conflict window.
    - Calculates Priority Score:
      $$\text{Priority Score} = (\text{Severity} \times 0.40) + (\text{ETA Urgency} \times 0.30) + (\text{Distance Urgency} \times 0.20) + (\text{Hospital Urgency} \times 0.10)$$
    - Resolves cross-directional collisions (North-to-South vs East-to-West) by granting `EMERGENCY GREEN` to higher priority vehicle, commanding `HOLD` (Red) to the other, and automatically handing over green right after primary clearance.
-
-2. **500m Green Corridor Geofence**:
-   - Automatically preempts signals along the route when an ambulance is within 500 meters.
-   - Reverts signal cycle to normal once vehicle clears the intersection.
-
 3. **Smart Hospital Recommendation**:
    - Ranks hospitals by emergency/ICU bed capacity, on-call specialists (Cardiology, Neurology, Trauma), and real-time proximity.
 
