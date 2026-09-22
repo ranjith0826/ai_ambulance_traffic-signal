@@ -72,7 +72,7 @@
 | **Amazon S3** | **Emergency Audit & Telemetry Vault**: Stores immutable PDF incident reports and dispatch logs with AES-256 server-side encryption. | Open **S3 $\rightarrow$ Buckets $\rightarrow$ `lifelane-ambulance-reports`** to show uploaded PDF audit reports with timestamps. |
 | **Amazon EC2 / Lightsail** | **Microservice Hosting**: Containerized FastAPI socket daemon and Vite React command dashboard. | Open **EC2 $\rightarrow$ Instances** to show running Docker host and Security Groups. |
 | **Amazon DocumentDB** | **NoSQL Telemetry Database**: MongoDB-compatible storage for signal states, fleet GPS coordinates, and hospital bed availability. | Open **Amazon DocumentDB $\rightarrow$ Clusters**. |
-| **Amazon SNS**|** SNSTargeted Hospital Emergency Alerting**: Routes real-time routing payloads to the selected hospital's emergency department via SMS, Email, or Webhook notifications.|Amazon SNS →lifelane-hospital-alerts
+| **Amazon SNS**| **SNSTargeted Hospital Emergency Alerting**: Routes real-time routing payloads to the selected hospital's emergency department via SMS, Email, or Webhook notifications.|**Amazon SNS →lifelane-hospital-alerts**
 
 
 ### 2. Live Demo Steps
